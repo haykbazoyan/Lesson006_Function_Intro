@@ -15,5 +15,5 @@ function numSubsets(numArr) {
   return result;
 }
 
-let arr = [5, 9, 4, 11];
+let arr = [5, 9, 23, 0, -2, -1, 5];
 console.log(numSubsets(arr));
