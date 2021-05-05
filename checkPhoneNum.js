@@ -1,19 +1,3 @@
-function checkPhoneNumDig(strNum) {
-  let checker = true;
-  for (let i = 0; i < strNum.length; i++) {
-    if (
-      Number.isNaN(Number(strNum[i])) === Number.isNaN(NaN) ||
-      strNum[i] === " "
-    ) {
-      return `Bad Number`;
-    } else {
-      continue;
-    }
-  }
-  return strNum;
-}
-
-// Main Function
 function checkPhoneNum(phoneNum) {
   if (typeof phoneNum !== "string" && typeof phoneNum !== "number") {
     return `Error: Input value is not a number or string`;
@@ -21,47 +5,32 @@ function checkPhoneNum(phoneNum) {
 
   if (typeof phoneNum === "number" && String(phoneNum).length === 10) {
     return phoneNum;
-  } else if (typeof phoneNum === "string" && phoneNum.length === 10) {
-    return checkPhoneNumDig(phoneNum);
   }
 
-  if (phoneNum[0] === "+" && phoneNum.length === 11) {
-    for (let i = 1; i < phoneNum.length; i++) {
-      if (
-        Number.isNaN(Number(phoneNum[i])) === Number.isNaN(NaN) ||
-        phoneNum[i] === " "
-      ) {
-        return `Bad Number`;
-      }
+  let numberWithoutSpace = "";
+  for (let i = 0; i < phoneNum.length; i++) {
+    if (phoneNum[i] === " ") {
+      continue;
     }
-
-    let resNum = "";
-    for (let i = 1; i < phoneNum.length; i++) {
-      resNum += phoneNum[i];
-    }
-    return resNum;
-  } else if (phoneNum[3] === " " && phoneNum.length === 11) {
-    for (let i = 0; i < phoneNum.length; i++) {
-      if (i === 3) {
-        continue;
-      } else if (
-        Number.isNaN(Number(phoneNum[i])) === Number.isNaN(NaN) ||
-        phoneNum[i] === " "
-      ) {
-        return `Bad Number`;
-      }
-    }
-
-    let resNum = "";
-    for (let i = 0; i < phoneNum.length; i++) {
-      if (i === 3) {
-        continue;
-      }
-      resNum += phoneNum[i];
-    }
-    return resNum;
+    numberWithoutSpace += phoneNum[i];
   }
+
+  if (
+    numberWithoutSpace.length === 10 &&
+    Number.isNaN(Number(numberWithoutSpace)) !== Number.isNaN(NaN)
+  ) {
+    return numberWithoutSpace;
+  }
+
+  if (numberWithoutSpace.length === 11 && numberWithoutSpace[0] === "+") {
+    let result = "";
+    for (let i = 1; i < numberWithoutSpace.length; i++) {
+      result += numberWithoutSpace[i];
+    }
+    return result;
+  }
+
   return `Bad Number`;
 }
 
-console.log(checkPhoneNum("3798005450"));
+console.log(checkPhoneNum("+0000567892"));
